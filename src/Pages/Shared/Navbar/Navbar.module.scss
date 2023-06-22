@@ -6,4 +6,24 @@
   nav ul {
     gap: 29px;
   }
+
+  .dropdown {
+    width: 190px;
+    min-height: 80ppx;
+    box-shadow: $primary_shadow;
+    border-radius: 5px;
+    text-align: left;
+    top: calc(100% - 20%) !important;
+
+    li:hover {
+      background-color: $primary_c;
+      border-radius: 5px;
+      color: $white_c;
+
+      button {
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
 }

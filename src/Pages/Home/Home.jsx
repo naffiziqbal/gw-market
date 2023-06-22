@@ -1,12 +1,29 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Categories from "../../components/category/Categories";
 import ProductCard from "../../components/product/ProductCard";
+import PageLoading from "../../components/ui/PageLoading";
+import { useAuth } from "../../hooks/useAuth";
+import { loggedInUser } from "../../redux/features/auth/authSlice";
+import {
+  convertToken,
+  exchangeCodeAndStore,
+  oAuthUrlToData,
+} from "../../utils/loginUtils";
 import styles from "./home.module.scss";
+
+
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const isAuth = useAuth();
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
     async function fetchData() {
@@ -26,18 +43,54 @@ const Home = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    oAuthUrlToData();
+  }, []);
+
+  useEffect(() => {
+    const oAuth2Code = localStorage.getItem("oAuth2Code");
+    if (oAuth2Code) {
+      const code = JSON.parse(oAuth2Code)?.code;
+      setIsLoading(true);
+      exchangeCodeAndStore(code, "");
+    }
+  }, []);
+
+// get oAuth2 data from localStorage 
+  useEffect(() => {
+    const getOauthData = () => {
+      let getData = localStorage.getItem("oAuth2Data");
+      getData = getData ? JSON.parse(getData) : null;
+      setIsLoading(false);
+      if (getData) {
+        const data = convertToken(getData);
+        data.then((value) => {
+          if (value && value?.data?.access_token) {
+            navigate("/");
+            setIsLoading(false);
+            localStorage.removeItem("oAuth2Code");
+            localStorage.removeItem("oAuth2Data");
+            dispatch(loggedInUser({token:value?.data?.access_token  , user: value?.user}))
+          }
+        });
+      }
+    };
+
+    setTimeout(getOauthData, 1000);
+  }, []);
+
+
+
   let items = null;
   let itemParent = null;
 
   if (selectedCategory && selectedSubCategory) {
-
-   const ctgry = selectedCategory?.sub_category.find(
+    const ctgry = selectedCategory?.sub_category.find(
       (value) => value?.id === selectedSubCategory?.id
     );
 
     items = ctgry?.items;
-    itemParent = ctgry?.name
-
+    itemParent = ctgry?.name;
   }
 
   const selectedCategoryHandler = (category) => {
@@ -49,22 +102,12 @@ const Home = () => {
     setSelectedSubCategory(subcategory);
   };
 
+  if (isLoading && !isAuth) return <PageLoading />;
+
   return (
     <>
       <section className={`${styles.categories_section}`}>
         <div className={`custom__container `}>
-          <div>
-            hi , here is my WhatsApp number and linkdin, 
-            please contact me with WhatsApp or Linkedin it will better conversations platform:
-
-            <p>
-              whatsApp: +8801609084876
-            </p>
-<p>
-  Linkedin: <a href="https://www.linkedin.com/in/mazharul-islam-5194a5204/" target="__blank"> Linkedin</a>
-</p>
-
-          </div>
           {/* category  */}
           <div className={`${styles.categories_wrapper}`}>
             <h2 className={`${styles.heading} `}>Categories</h2>
