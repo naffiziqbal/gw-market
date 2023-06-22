@@ -5,7 +5,7 @@ logs
 **/*.back.*
 node_modules
 bower_components
-
+.gitignore
 *.sublime*
 
 psd
@@ -23,6 +23,7 @@ sketch
 
 # misc
 .DS_Store
+.evn
 .env.local
 .env.development.local
 .env.test.local
