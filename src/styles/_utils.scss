@@ -1,0 +1,52 @@
+@import "./_global.scss";
+
+.custom__container {
+  max-width: map-get($container, width);
+  margin-inline: auto;
+  padding: map-get($container, padding);
+}
+
+// mixins
+
+/*----------  typography  ----------*/
+
+@mixin heading_title {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 33px;
+  color: $black_c;
+}
+
+@mixin sub_title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 38px;
+  color: $black_c;
+}
+
+@mixin small_font {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+/*=============================================
+=            button mixin            =
+=============================================*/
+
+@mixin add_to_cart_btn {
+  border: 0;
+  outline: none;
+  background-color: $primary_c;
+  padding: 4px 15px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/*=====  End of button mixin  ======*/

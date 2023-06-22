@@ -1,0 +1,30 @@
+@import "../../styles/_global.scss";
+@import "../../styles/_utils.scss";
+
+.categories_wrapper {
+  margin-block: 42px;
+
+  .heading {
+    @include heading_title;
+    margin-bottom: 40px;
+  }
+}
+
+.product_section {
+  .heading {
+    @include heading_title;
+    margin-bottom: 40px;
+    position: relative;
+
+    &::after {
+      content: "";
+      width: 217px;
+      height: 5px;
+      background-color: $black_c;
+      display: block;
+      left: 0;
+      margin-top: 8px;
+      border-radius: 10px;
+    }
+  }
+}

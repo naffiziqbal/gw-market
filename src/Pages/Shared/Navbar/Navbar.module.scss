@@ -1,0 +1,9 @@
+@import "../../../styles/_global.scss";
+
+.main__header {
+  background-color: $white_c;
+
+  nav ul {
+    gap: 29px;
+  }
+}

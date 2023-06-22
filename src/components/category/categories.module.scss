@@ -1,0 +1,30 @@
+@import "../../styles/_global.scss";
+@import "../../styles/_utils.scss";
+
+.category_card_btn {
+  min-width: 260px;
+  min-height: 94px;
+  background-color: $white_c;
+  gap: 36px;
+  border-radius: 16px;
+  box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.17);
+  padding: 16px 33px;
+  border: none;
+
+  &.active {
+    background-color: $primary_c;
+  }
+
+  &:disabled {
+    color: $black_c;
+  }
+
+  .heading {
+    @include sub_title;
+  }
+
+  img {
+    width: 63px;
+    height: 63px;
+  }
+}

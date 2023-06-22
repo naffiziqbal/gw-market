@@ -1,0 +1,40 @@
+/**
+ *
+ * This file contains all global variables are declared 
+
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/*----------  container   ----------*/
+$container: (
+  width: 1384px,
+  padding: 0 15px,
+);
+/*----------  colors  ----------*/
+
+$primary_c: rgb(255, 153, 0);
+$black_c: #000000;
+$opacity_c: rgb(0, 0, 0, 0.5);
+$white_c: #fff;
+$body-bg_c: #fff;
+
+/*=============================================
+=            fonts       =
+=============================================*/
+
+/*----------  fonts family  ----------*/
+$f_poppins: "Poppins", sans-serif;
+
+/*----------  font weights ----------*/
+$f_weights: (
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+);
+
+/*----------  shadows  ----------*/
+
+$primary_shadow: 2px 2px 18px rgba(0, 0, 0, 0.17);

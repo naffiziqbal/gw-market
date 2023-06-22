@@ -1,0 +1,24 @@
+@import "../../styles/_utils.scss";
+@import "../../styles//_global.scss";
+
+.product_card {
+  width: 280px;
+  min-height: 263px;
+  background-color: $white_c;
+  box-shadow: $primary_shadow;
+  border-radius: 14px;
+
+  .title {
+    @include sub_title;
+    padding: 0 24px;
+  }
+
+  .btn_wrapper {
+    padding: 0 24px 20px 24px;
+  }
+
+  .btn {
+    @include small_font;
+    @include add_to_cart_btn;
+  }
+}

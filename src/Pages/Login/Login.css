@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+@font-face {
+    font-family: Gotham;
+    src: url(../../assets/font/Gotham-Bold.otf);
+}
+
+@font-face {
+    font-family: Mazzard;
+    src: url(../../assets/font/MazzardH-Regular.ttf);
+}
+
+.login-form {
+    padding: 120px 55px;
+}
+
+.login-form h2 {
+    font-family: 'Gotham';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 33px;
+    line-height: 36px;
+    color: #000000;
+    margin-bottom: 28px;
+    position: relative;
+
+}
+
+.login-form h2::before {
+    content: url('../../assets/images/crown.png');
+    width: 41.24px;
+    height: 41.47px;
+    position: absolute;
+    top: -41px;
+    left: -41px;
+}
+
+.login-form h5 {
+    font-family: 'Mazzard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 44px;
+}
+
+.forgot-password {
+    font-family: 'Mazzard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: right;
+    color: #000000;
+    display: block;
+    margin-bottom: 38px;
+
+}
+
+input {
+    border: 1px solid rgba(0, 0, 0, 0.42);
+    border-radius: 11px;
+    display: block;
+    margin-bottom: 31px;
+    padding: 22px;
+    width: 100%;
+    padding-left: 40px;
+    outline: none;
+}
+
+input[type="email"] {
+    background-image: url('../../assets/images/message-icon.png');
+    background-repeat: no-repeat;
+    background-position: 14px 27px;
+}
+
+input[type="password"] {
+    background-image: url('../../assets/images/lock-icon.png');
+    background-repeat: no-repeat;
+    background-position: 14px 22px;
+    margin: 30px 0 35px 0;
+}
+
+.login-form form button {
+    background: #FF9900;
+    border-radius: 11px;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    outline: none;
+    border: none;
+    font-family: 'Mazzard';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 32px;
+    color: #FFFFFF;
+    margin-bottom: 40px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+
+}
+
+.login-form form button:hover {
+    background-color: #ff990067;
+}
+
+.new-user {
+    font-family: 'Mazzard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 34px;
+}
+
+.sign-up {
+    font-weight: bold;
+}
+
+.login-with {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.03em;
+    color: rgba(0, 0, 0, 0.81);
+    text-align: center;
+    display: block;
+    margin-bottom: 34px;
+}
+
+.google-with-fg {
+    text-align: center;
+}
+
+.google-with-fg img {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.google-with-fg img:first-child {
+    margin-left: 0;
+}
+
+.login-banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
