@@ -8,7 +8,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { loggedInUser } from "../../redux/features/auth/authSlice";
 import {
   convertToken,
-  deleteQuery,
   exchangeCodeAndStore,
   getQuery,
   oAuthUrlToData
@@ -68,16 +67,15 @@ const Home = () => {
             const query = getQuery();
             localStorage.removeItem("oAuth2Code");
             localStorage.removeItem("oAuth2Data");
-
             dispatch(
               loggedInUser({
                 token: value?.data?.access_token,
                 user: value?.user,
               })
-            );
-            setIsLoading(false);
-            navigate(query ? `/${query}` : "/");
-            deleteQuery()
+              );
+              setIsLoading(false);
+              navigate(query ? `/${query}` : "/");
+             
           }
         });
       }

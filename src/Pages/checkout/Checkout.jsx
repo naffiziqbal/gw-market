@@ -4,12 +4,13 @@ import CheckoutCard from "../../components/checkout/CheckoutCard";
 import CheckoutList from "../../components/checkout/CheckoutList";
 import { useCart } from "../../hooks/useCart";
 
-
 function Checkout() {
   const { getData, subTotalPrice, getLength } = useCart();
 
   const subTotal = subTotalPrice();
   const length = getLength();
+
+
 
   if (getData && getData?.cartItems?.length > 0) {
     return (

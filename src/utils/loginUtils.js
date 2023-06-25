@@ -8,7 +8,7 @@ const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
 
 
-console.log(API_BASE_URL);
+
 
 
 export const oAuth2Login = (path) => {
