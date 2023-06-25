@@ -1,0 +1,10 @@
+.back_btn {
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  margin: 0;
+  &:hover svg > path {
+    stroke: red;
+  }
+}

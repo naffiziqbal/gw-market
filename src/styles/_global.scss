@@ -8,17 +8,22 @@
 
 /*----------  container   ----------*/
 $container: (
-  width: 1384px,
+  width: 1440px,
   padding: 0 15px,
 );
 /*----------  colors  ----------*/
 
 $primary_c: rgb(255, 153, 0);
+$primary_c_light: #d957211a;
 $black_c: #000000;
 $opacity_c: rgb(0, 0, 0, 0.5);
 $white_c: #fff;
 $body-bg_c: #fff;
-
+$gray_c: #909090;
+$divider_c: #e8e8e8;
+$border_c: hsla(0, 0%, 0%, 0.12);
+$light_gray: hsla(0, 0%, 40%, 1);
+$white_gray: hsla(0, 0%, 97%, 1);
 /*=============================================
 =            fonts       =
 =============================================*/

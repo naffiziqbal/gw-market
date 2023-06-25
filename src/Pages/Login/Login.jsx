@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import googleIcon from "../../assets/images/google-icon.png";
 import Banner from "../../assets/images/login-banner-image.png";
 import Logo from "../../assets/images/logo.png";
-import { exchangeCodeAndStore, oAuth2Login, oAuthUrlToData } from "../../utils/loginUtils";
+import { oAuth2Login, setQuery } from "../../utils/loginUtils";
 import "./Login.css";
 
+
 const Login = () => {
-   
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const queryParam = queryParams.get('from');
 
-
+  
   const handleLogin = () => {
     oAuth2Login("");
+    setQuery(queryParam)
   };
 
 

@@ -7,6 +7,13 @@
     gap: 29px;
   }
 
+  nav ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
   .dropdown {
     width: 190px;
     min-height: 80ppx;

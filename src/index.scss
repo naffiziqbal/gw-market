@@ -16,11 +16,17 @@ h3,
 h4,
 h5,
 h6,
-html {
+html,
+svg,
+div {
   margin: 0;
   padding: 0;
 }
 
 body {
   width: 100%;
+}
+
+.checkout__btn_wrapper a {
+  text-decoration: none;
 }

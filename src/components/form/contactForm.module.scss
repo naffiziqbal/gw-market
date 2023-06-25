@@ -1,0 +1,44 @@
+@import "../../styles/_global.scss";
+@import "../../styles/_utils.scss";
+
+.contact_form {
+  width: 100%;
+
+  & .contact_form_container {
+    box-shadow: 2px 2px 39px 0px hsla(0, 0%, 0%, 0.1);
+    border-radius: 20px;
+    padding: 31px 38px;
+  }
+
+  & .heading {
+    @include regular_font;
+    margin-bottom: 13px;
+    color: $light_gray;
+  }
+
+  & .receiver_contact {
+    & .commune {
+      width: 100% - 40%;
+    }
+  }
+
+  & .receiver_address {
+    margin-top: 46px;
+  }
+
+  & input {
+    @include input_field;
+
+    &:focus {
+      outline: none;
+    }
+    &.district_input {
+      width: 40%;
+    }
+  }
+
+  & button {
+    width: fit-content;
+    display: inline !important;
+  }
+}

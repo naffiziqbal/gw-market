@@ -8,12 +8,12 @@ import { useAuth } from "../../hooks/useAuth";
 import { loggedInUser } from "../../redux/features/auth/authSlice";
 import {
   convertToken,
+  deleteQuery,
   exchangeCodeAndStore,
-  oAuthUrlToData,
+  getQuery,
+  oAuthUrlToData
 } from "../../utils/loginUtils";
 import styles from "./home.module.scss";
-
-
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
@@ -22,8 +22,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const isAuth = useAuth();
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
@@ -56,7 +55,7 @@ const Home = () => {
     }
   }, []);
 
-// get oAuth2 data from localStorage 
+  // get oAuth2 data from localStorage
   useEffect(() => {
     const getOauthData = () => {
       let getData = localStorage.getItem("oAuth2Data");
@@ -66,11 +65,19 @@ const Home = () => {
         const data = convertToken(getData);
         data.then((value) => {
           if (value && value?.data?.access_token) {
-            navigate("/");
-            setIsLoading(false);
+            const query = getQuery();
             localStorage.removeItem("oAuth2Code");
             localStorage.removeItem("oAuth2Data");
-            dispatch(loggedInUser({token:value?.data?.access_token  , user: value?.user}))
+
+            dispatch(
+              loggedInUser({
+                token: value?.data?.access_token,
+                user: value?.user,
+              })
+            );
+            setIsLoading(false);
+            navigate(query ? `/${query}` : "/");
+            deleteQuery()
           }
         });
       }
@@ -78,8 +85,6 @@ const Home = () => {
 
     setTimeout(getOauthData, 1000);
   }, []);
-
-
 
   let items = null;
   let itemParent = null;
