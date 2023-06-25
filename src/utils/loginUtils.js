@@ -1,11 +1,15 @@
 import Cookies from "js-cookie";
 
-const G_CLIENT_ID = import.meta.env.DEV.VITE_G_CLIENT_ID || import.meta.env.PROD.VITE_G_CLIENT_ID;
-const BASE_URL = import.meta.env.DEV.VITE_BASE_CLIENT_URL || import.meta.env.PROD.VITE_BASE_CLIENT_URL;
-const G_CLIENT_SECRET = import.meta.env.DEV.VITE_G_CLIENT_SECRET ||import.meta.env.PROD.VITE_G_CLIENT_SECRET;
-const API_BASE_URL = import.meta.env.DEV.VITE_BASE_API_URL ||import.meta.env.PROD.VITE_BASE_API_URL;
-const CLIENT_ID = import.meta.env.DEV.VITE_CLIENT_ID || import.meta.env.PROD.VITE_CLIENT_ID;
-const CLIENT_SECRET = import.meta.env.DEV.VITE_CLIENT_SECRET || import.meta.env.PROD.VITE_CLIENT_SECRET;
+const G_CLIENT_ID = import.meta.env.VITE_G_CLIENT_ID;
+const BASE_URL = import.meta.env.VITE_BASE_CLIENT_URL;
+const G_CLIENT_SECRET = import.meta.env.VITE_G_CLIENT_SECRET;
+const API_BASE_URL = import.meta.env.VITE_BASE_API_URL;
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
+const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
+
+
+console.log(API_BASE_URL);
+
 
 export const oAuth2Login = (path) => {
   const authorizationEndpoint = "https://accounts.google.com/o/oauth2/auth";
