@@ -1,7 +1,12 @@
-import React from "react";
 import styles from "./contactForm.module.scss";
+import useAddress from "../../hooks/useAddress";
 
 function ContactForm() {
+  const { getCity, getDistrict, get_ward_commune, isLoading } = useAddress(
+    "Thành phố Hồ Chí Minh",
+    "Quận 1"
+  );
+
   return (
     <>
       <div className={`${styles.contact_form}`}>
