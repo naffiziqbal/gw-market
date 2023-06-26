@@ -17,7 +17,7 @@ function CheckoutItem({ product }) {
 
   return (
     <div
-      className={` d-flex justify-content-between align-items-center  ${styles.checkoutItem}  `}
+      className={` ${styles.checkoutItem}  `}
     >
       {/* left side  */}
       <div className="d-flex sm:gap-4">

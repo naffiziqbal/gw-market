@@ -1,11 +1,13 @@
+import { useAddress } from "../../hooks/useAddress";
+import { Select } from "../select/Select";
 import styles from "./contactForm.module.scss";
-import useAddress from "../../hooks/useAddress";
 
 function ContactForm() {
-  const { getCity, getDistrict, get_ward_commune, isLoading } = useAddress(
-    "Thành phố Hồ Chí Minh",
-    "Quận 1"
-  );
+  const { getCity, getDistrict, get_ward_commune, isLoading, isError } =
+    useAddress();
+  const cities = getCity;
+  const districts = getDistrict;
+  const commune = get_ward_commune;
 
   return (
     <>
@@ -28,17 +30,32 @@ function ContactForm() {
                   <input type="text" placeholder="Street Address" />
                 </div>
 
-                <div className="d-flex flex-md-row flex-column  justify-content-between gap-5">
-                  <input type="text" placeholder="Province (or City)" />
-                  <input
-                    type="text"
-                    placeholder="District"
-                    className={`${styles.district_input}`}
-                  />
+                <div className="d-flex w-100 flex-md-row flex-column  justify-content-between gap-4">
+                  <div className="col-7">
+                    <Select
+                      data={cities}
+                      isLoading={isLoading}
+                      placeholder={"Province (or City)"}
+                      className={"input"}
+                    />
+                  </div>
+                  <div className="col-4">
+                    <Select
+                      data={districts}
+                      isLoading={isLoading}
+                      placeholder={"District"}
+                      className={"input"}
+                    />
+                  </div>
                 </div>
 
-                <div className={`${styles.commune}`}>
-                  <input type="text" placeholder="Ward (or Commune)" required />
+                <div className={`${styles.commune} `}>
+                  <Select
+                    data={commune}
+                    isLoading={isLoading}
+                    placeholder={"Ward (or Commune)"}
+                    className={"input"}
+                  />
                 </div>
               </div>
             </div>

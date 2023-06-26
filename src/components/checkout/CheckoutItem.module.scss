@@ -5,6 +5,9 @@
   position: relative;
   border-bottom: 1px solid hsla(0, 0%, 91%, 1);
   padding-block: 18px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 
   figure {
     width: 120px;
@@ -37,11 +40,19 @@
   @media (max-width: 668px) {
     .unit {
       font-size: 10px;
+      line-height: 16px;
     }
     .title,
     .total,
     .price {
       font-size: 12px;
+    }
+  }
+
+  @media (max-width: 300px) {
+    figure {
+      width: 100px;
+      height: 100px;
     }
   }
 }

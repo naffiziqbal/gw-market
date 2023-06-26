@@ -25,8 +25,43 @@ div {
 
 body {
   width: 100%;
+  overflow-x: hidden;
 }
 
-.checkout__btn_wrapper a {
-  text-decoration: none;
+// select
+
+.select {
+  background-color: $white_gray !important;
+  padding: 6px 10px;
+  margin: 0;
+
+  .checkout__btn_wrapper a {
+    text-decoration: none;
+  }
+
+  .css-1u9des2-indicatorSeparator {
+    display: none;
+  }
+
+  .css-1xc3v61-indicatorContainer,
+  .css-1u9des2-indicatorSeparator {
+    padding: 2px !important;
+  }
+
+  .css-1fdsijx-ValueContainer,
+  .css-13cymwt-control,
+  .css-t3ipsp-control {
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .css-13cymwt-control {
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+  }
+  .css-13cymwt-control:hover {
+    border: 0 !important;
+  }
 }

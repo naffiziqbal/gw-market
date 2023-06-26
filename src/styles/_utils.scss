@@ -2,6 +2,7 @@
 
 .custom__container {
   max-width: map-get($container, width);
+  width: 100%;
   margin-inline: auto;
   padding: map-get($container, padding);
 }
@@ -117,4 +118,9 @@
   border-radius: 6px;
   background-color: $white_gray;
 }
+
+.input {
+  @include input_field;
+}
+
 /*=====  End of input field  ======*/

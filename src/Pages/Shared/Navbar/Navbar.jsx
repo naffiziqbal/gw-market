@@ -22,7 +22,7 @@ const Navbar = () => {
           
           `}
         >
-          <div className={`w-100 `}>
+          <div className={`w-25 h-25 ml-0 `}>
             <NavLink to={"/"}>
               <Logo />
             </NavLink>

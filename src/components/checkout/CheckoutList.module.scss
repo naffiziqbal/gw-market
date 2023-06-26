@@ -8,6 +8,7 @@
   padding: 30px;
   border-radius: 10px;
   box-sizing: border-box;
+  overflow-x: hidden;
 
   .heading {
     @include regular_font;
@@ -16,7 +17,7 @@
   }
 
   .pricing_wrapper {
-    width: 12rem;
+    max-width: 12rem;
     margin-top: 18px;
     margin-inline-start: auto;
     .pricing {

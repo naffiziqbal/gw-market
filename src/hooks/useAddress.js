@@ -1,30 +1,46 @@
-import { useGetAddressQuery } from "../redux/features/address/addressApi";
+import { useMemo } from 'react';
+import { useGetAddressQuery } from '../redux/features/address/addressApi';
 
-const useAddress = (userCity, userDistrict) => {
+export const useAddress = () => {
   const { data, isLoading, isError, error } = useGetAddressQuery();
 
-  // get city
-  const getCity = data?.data?.province_city?.map((c) => {
-    return { value: c?.name, code: c?.code };
-  });
+  const cities = useMemo(() => {
+    return data?.data?.province_city?.map((c) => c);
+  }, [data?.data?.province_city]);
 
-  // find user city
-  const findCity = data?.data?.province_city?.find((c) => c?.name === userCity);
-  // Get district based on user's city
-  const getDistrict = findCity?.district?.map((d) => ({
-    name: d.name,
-    code: d.code,
-  }));
+  
+  const getCity = useMemo(() => {
+    if (cities) {
+      return cities?.map((c) => ({ label: c?.name, value: c?.code }));
+    }
+    return [];
+  }, [cities]);
 
-  // find user district
-  const findDistrict = findCity?.district?.find((d) => d.name === userDistrict);
-  // Get ward commune based on user's district
-  const get_ward_commune = findDistrict?.ward_commune?.map((wc) => ({
-    name: wc.name,
-    code: wc.code,
-  }));
+  const getDistrict = useMemo(() => {
+    if (cities) {
+      const districts = cities?.flatMap((c) => c?.district || []);
+      return districts?.map((d) => ({ label: d?.name, value: d?.code })) || [];
+    }
+    return [];
+  }, [cities]);
 
-  return { getCity, getDistrict, get_ward_commune, isLoading };
+  const get_ward_commune = useMemo(() => {
+    let communes = [];
+
+    if (cities) {
+      for (let district of cities?.flatMap((c) => c?.district || [])) {
+        communes.push({
+          label:  district?.name,
+          options: district?.ward_commune?.map((value) => ({
+            value: value?.code,
+            label: value?.name,
+          })),
+        });
+      }
+    }
+
+    return communes;
+  }, [cities]);
+
+  return { getCity, getDistrict, get_ward_commune, isLoading, error, isError };
 };
-
-export default useAddress;

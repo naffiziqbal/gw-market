@@ -2,7 +2,7 @@
 @import "../../styles//_global.scss";
 
 .product_card {
-  width: 280px;
+  min-width: 280px;
   min-height: 263px;
   background-color: $white_c;
   box-shadow: $primary_shadow;

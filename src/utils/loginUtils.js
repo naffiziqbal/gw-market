@@ -8,9 +8,6 @@ const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
 
 
-
-
-
 export const oAuth2Login = (path) => {
   const authorizationEndpoint = "https://accounts.google.com/o/oauth2/auth";
   const scope = "https://www.googleapis.com/auth/userinfo.email";

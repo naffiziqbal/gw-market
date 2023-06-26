@@ -6,13 +6,16 @@ import ProductCard from "../../components/product/ProductCard";
 import PageLoading from "../../components/ui/PageLoading";
 import { useAuth } from "../../hooks/useAuth";
 import { loggedInUser } from "../../redux/features/auth/authSlice";
+import { useGetProductQuery } from "../../redux/features/product/productAPI";
 import {
   convertToken,
   exchangeCodeAndStore,
   getQuery,
-  oAuthUrlToData
+  oAuthUrlToData,
 } from "../../utils/loginUtils";
 import styles from "./home.module.scss";
+
+
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
@@ -22,24 +25,18 @@ const Home = () => {
   const navigate = useNavigate();
   const isAuth = useAuth();
   const dispatch = useDispatch();
+  const { isError, isLoading: loading, data } = useGetProductQuery();
 
+  // initial product fetching and selecting
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch(
-          "https://grocerywatch.herokuapp.com/market/data/"
-        );
-
-        const data = await res.json();
-        setCategories(data?.categories);
-        setSelectedCategory(data?.categories[0]);
-        setSelectedSubCategory(data?.categories[0]?.sub_category[0]);
-      } catch (err) {
-        console.log(err);
-      }
+    console.log(data);
+    if (!isError && data && data?.categories) {
+      console.log('hi');
+      setCategories(data?.categories);
+      setSelectedCategory(data?.categories[0]);
+      setSelectedSubCategory(data?.categories[0]?.sub_category[0]);
     }
-    fetchData();
-  }, []);
+  }, [data , isError]);
 
   useEffect(() => {
     oAuthUrlToData();
@@ -72,10 +69,9 @@ const Home = () => {
                 token: value?.data?.access_token,
                 user: value?.user,
               })
-              );
-              setIsLoading(false);
-              navigate(query ? `/${query}` : "/");
-             
+            );
+            setIsLoading(false);
+            navigate(query ? `/${query}` : "/");
           }
         });
       }
@@ -105,7 +101,7 @@ const Home = () => {
     setSelectedSubCategory(subcategory);
   };
 
-  if (isLoading && !isAuth) return <PageLoading />;
+  if ((isLoading && !isAuth) || loading) return <PageLoading />;
 
   return (
     <>
@@ -114,7 +110,7 @@ const Home = () => {
           {/* category  */}
           <div className={`${styles.categories_wrapper}`}>
             <h2 className={`${styles.heading} `}>Categories</h2>
-            <div className={`d-flex align-items-center gap-4`}>
+            <div className={`d-flex  align-items-sm-center flex-grow-1  flex-wrap  gap-lg-4 gap-2 `}>
               {categories.map((value) => (
                 <Categories
                   key={value?.id}
@@ -132,7 +128,7 @@ const Home = () => {
           {/* sub categories  */}
           <div className={`${styles.categories_wrapper}`}>
             <h2 className={`${styles.heading}`}>Sub-Categories</h2>
-            <div className={`d-flex align-items-center gap-4`}>
+            <div className={`d-flex flex-wrap align-items-sm-center  flex-grow-1 gap-4 `}>
               {selectedCategory &&
                 selectedCategory?.sub_category.map((sub_c_value) => (
                   <Categories
@@ -158,13 +154,13 @@ const Home = () => {
           <h2 className={`${styles.heading}`}>Items</h2>
 
           {items?.length > 0 ? (
-            <div className={`d-flex  align-items-center gap-5`}>
+            <div className={`d-flex flex-wrap align-items-sm-center  flex-grow-1 gap-lg-4 gap-2`}>
               {items.map((item) => (
                 <ProductCard key={item?.id} productData={item} />
               ))}
             </div>
           ) : (
-            <div>Not found any item in -&gt; {itemParent}</div>
+            <div>Not found any item in {itemParent ? `=>${itemParent}` : ''}</div>
           )}
         </div>
       </section>
