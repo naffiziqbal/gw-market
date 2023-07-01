@@ -1,27 +1,13 @@
-import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
-import { userLoggedOut } from "../../../redux/features/auth/authSlice";
+import { useLogout } from '../../../hooks/useLogout';
 import styles from './Navbar.module.scss';
 
- const Dropdown = ({ isOpen , handleOpen }) => {
+ 
+const Dropdown = ({ isOpen , handleOpen }) => {
 
-const dispatch = useDispatch()
-
-
-const logout = async()=>{
-  try{
-    const res = await fetch('https://grocerywatch.herokuapp.com/account/logout/');
-
-    console.log(await res.json());
+const {logout , success , isLoading , error} = useLogout();
 
 
-    Cookies.remove('authUserData')
-    dispatch(userLoggedOut({}))
 
-  }catch(err){
-    console.log(err);
-  }
-}
 
 
     if (isOpen)

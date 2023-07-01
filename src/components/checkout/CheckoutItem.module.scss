@@ -49,6 +49,23 @@
     }
   }
 
+  .close_btn {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    display: inline;
+    text-align: right;
+    background-color: transparent;
+
+    svg {
+      fill: $primary_c;
+      &:hover {
+        fill: $gray_c;
+      }
+    }
+  }
+
   @media (max-width: 300px) {
     figure {
       width: 100px;

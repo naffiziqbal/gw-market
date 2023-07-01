@@ -8,12 +8,12 @@ export const useCart = () => {
   };
 
   const isExist = (id) => {
-    return cart?.cartItems.some((value) => value?.item?.id === id);
+    return cart?.cartItems?.some((value) => value?.item?.id === id);
   };
 
   const subTotalPrice = () => {
-    return cart?.cartItems.reduce((total, New) => {
-      return total + New?.item?.sum_price;
+    return cart?.cartItems?.reduce((total, New) => {
+      return total + New?.price;
     }, 0);
   };
 

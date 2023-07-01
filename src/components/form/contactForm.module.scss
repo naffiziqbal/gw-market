@@ -37,8 +37,22 @@
     }
   }
 
+  & input[name="phone"] {
+    border-radius: 6px 0 0 6px;
+  }
+
   & button {
     width: fit-content;
     display: inline !important;
+  }
+  & .verify {
+    padding: 13px 50px;
+    border-radius: 0 6px 6px 0;
+    background-color: $light_gray;
+  }
+
+  .error {
+    border: 1px solid red;
+    border-radius: 6px;
   }
 }

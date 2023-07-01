@@ -1,0 +1,12 @@
+.select_contact {
+  max-width: 300px;
+  padding: 15px;
+  border-radius: 12px;
+
+  & .radio {
+    width: 19px;
+    height: 19px;
+    border: 2px solid white;
+    border-radius: 100%;
+  }
+}

@@ -29,9 +29,7 @@ const Home = () => {
 
   // initial product fetching and selecting
   useEffect(() => {
-    console.log(data);
     if (!isError && data && data?.categories) {
-      console.log('hi');
       setCategories(data?.categories);
       setSelectedCategory(data?.categories[0]);
       setSelectedSubCategory(data?.categories[0]?.sub_category[0]);
@@ -51,7 +49,7 @@ const Home = () => {
     }
   }, []);
 
-  // get oAuth2 data from localStorage
+  /* -------------------- get oAuth2 data from localStorage ------------------- */
   useEffect(() => {
     const getOauthData = () => {
       let getData = localStorage.getItem("oAuth2Data");
@@ -64,6 +62,7 @@ const Home = () => {
             const query = getQuery();
             localStorage.removeItem("oAuth2Code");
             localStorage.removeItem("oAuth2Data");
+            // set login cookies 
             dispatch(
               loggedInUser({
                 token: value?.data?.access_token,
@@ -77,8 +76,14 @@ const Home = () => {
       }
     };
 
-    setTimeout(getOauthData, 1000);
+    setTimeout(getOauthData, 500);
+
+
+    return ()=>{clearTimeout(getOauthData)}
   }, []);
+
+
+  /* -------------------------------- items tab ------------------------------- */
 
   let items = null;
   let itemParent = null;

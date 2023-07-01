@@ -1,5 +1,4 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 import CheckoutCard from "../../components/checkout/CheckoutCard";
 import CheckoutList from "../../components/checkout/CheckoutList";
 import { useCart } from "../../hooks/useCart";
@@ -10,9 +9,6 @@ function Checkout() {
   const subTotal = subTotalPrice();
   const length = getLength();
 
-
-
-  if (getData && getData?.cartItems?.length > 0) {
     return (
       <div className="custom__container">
         <div className="row gap-lg-0 gap-4 flex-shrink-1">
@@ -29,9 +25,7 @@ function Checkout() {
         </div>
       </div>
     );
-  } else {
-    return <Navigate to="/" />;
   }
-}
+
 
 export default Checkout;

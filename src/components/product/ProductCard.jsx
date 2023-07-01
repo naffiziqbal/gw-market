@@ -1,19 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useCart } from "../../hooks/useCart";
-import { addToCart } from "../../redux/features/addToCart/cartSlice";
+import { addToCart, updateCart } from "../../redux/features/addToCart/cartSlice";
+import { convertCartItemDataForAPI } from "../../utils/cart";
+import { debounce } from "../../utils/utils";
 import styles from "./ProductCard.module.scss";
 
 function ProductCard({ productData = {} }) {
   const dispatch = useDispatch();
-  const {isExist} = useCart()
+  const { isExist  , getData} = useCart();
+  const [trackClick , setTrackClick] = useState(0)
 
-  
 
-const addToCartHandler = (product)=>{
-  dispatch(addToCart({ ...product }));
+  const addToCartHandler =  (product) => {
+    dispatch(addToCart({ ...product }));
+    setTrackClick((prev)=> ++prev)
+  };
 
-}
+console.log(trackClick);
+
+
+ // update cart api
+ useEffect(() => {
+  if (trackClick) {
+    const data = convertCartItemDataForAPI(getData?.cartItems);
+
+    const update = debounce(() => {
+      dispatch(updateCart({ cart_items: data }));
+    }, 400);
+
+    update(); // Invoke the debounced update function immediately
+   setTrackClick(0)
+    // Return a cleanup function to cancel the debounce timer
+    return () => {
+      clearTimeout(update);
+    };
+  }
+}, [trackClick]);
+
 
 
 
@@ -31,10 +55,10 @@ const addToCartHandler = (product)=>{
         <button
           type="button"
           className={`${styles.btn}`}
-          onClick={()=>{addToCartHandler(productData)}}
-
-          disabled = {isExist(productData?.id)}
-         
+          onClick={() => {
+            addToCartHandler(productData);
+          }}
+          disabled={isExist(productData?.id)}
         >
           Add to cart
         </button>

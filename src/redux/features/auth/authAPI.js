@@ -1,10 +1,18 @@
-import api_slice from "../api/_API_slice";
+import axiosIns from '../../../utils/axiosIns';
 
-const authAPI = api_slice.injectEndpoints({
-  endpoints: (builder) => ({
 
-  }),
-});
+
+export const fetchLogoutApi = async (token)=>{
+   axiosIns.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+   return await axiosIns.get('/account/logout/');
+}
+
+
+
+
+
+
+
 
 
 

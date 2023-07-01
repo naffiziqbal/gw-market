@@ -1,0 +1,49 @@
+@import url("../../styles/_global.scss");
+@import "../../styles/_utils.scss";
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+
+  .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(62, 57, 66, 0.37);
+  }
+
+  .modal_body {
+    position: absolute;
+    max-width: fit-content;
+    background-color: white;
+    height: fit-content;
+    padding: 10px 25px 20px 25px;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .modal_header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h4 {
+        @include regular_font;
+        margin-block: 8px;
+        padding: 0;
+      }
+      button {
+        padding: 5px 20px;
+        border: 0;
+        border-radius: 2px;
+      }
+    }
+  }
+}

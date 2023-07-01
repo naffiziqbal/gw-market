@@ -11,7 +11,6 @@ const api_slice = createApi({
       try {
           const token = getState()?.auth.loggedInUser?.token;
           console.log(token);
-          
           if(token){     
             headers.set('Authorization' , `Bearer ${token}`)
          }

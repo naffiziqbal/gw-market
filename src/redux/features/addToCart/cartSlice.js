@@ -1,19 +1,39 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axiosIns from "../../../utils/axiosIns";
 
-let cartItemsFromStorage = localStorage.getItem("cart");
+const updateCartAPI = async (data , token) => {
+  try {
+    axiosIns.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    const res = await axiosIns.post("/customer/update-cart/", { ...data });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-cartItemsFromStorage = cartItemsFromStorage
-  ? JSON.parse(cartItemsFromStorage).data
-  : [];
+export const updateCart = createAsyncThunk(
+  "customer/update-cart",
+  async (data , {getState}) => {
+    const token = getState().auth?.loggedInUser?.token;
+    const res = await updateCartAPI(data , token);
+    return res.data;
+  }
+);
 
+/* ------------------------------ initial state ----------------------------- */
 const initialState = {
-  cartItems: cartItemsFromStorage,
+  cartItems: [],
+  isUpdate: false,
+  isLoading: false
 };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: initialState,
   reducers: {
+    initialData: (state, action) => {
+      state.cartItems = [...action.payload?.data];
+    },
     /* ------------------------------ / add to cart ----------------------------- */
     addToCart: (state, action) => {
       const data = action?.payload;
@@ -23,10 +43,15 @@ const cartSlice = createSlice({
       );
       //       add item to state
       if (!isExist) {
-        state.cartItems = [...state.cartItems, { quantity: 1, item: {...data , sum_price: data?.price , sum_count_per_quantity: data?.count_per_quantity}}];
-
-        localStorage.setItem("cart", JSON.stringify({ data: state.cartItems }));
+        state.cartItems = [
+          ...state.cartItems,
+          { quantity: 1, item: { ...data } },
+        ];
       }
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ cart_items: state.cartItems })
+      );
     },
 
     /* -------------------------------remove item from cart action------------------------------------------- */
@@ -35,12 +60,16 @@ const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (value) => value?.item?.id !== id
       );
-      localStorage.setItem("cart", JSON.stringify({ data: state.cartItems }));
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ cart_items: state.cartItems })
+      );
     },
     /* --------------------------------/-remove from cart action end-------------------------------------- */
     /* -------------------------------remove item from cart action------------------------------------------- */
     removeAll: (state, action) => {
-      state.cartItems = [{ quantity: 0, item: {} }];
+      state.cartItems = [];
       localStorage.removeItem("cart");
     },
 
@@ -48,34 +77,53 @@ const cartSlice = createSlice({
     /* -------------------------------- increment -------------------------------- */
     increment: (state, action) => {
       const id = action.payload.id;
-      state.cartItems.forEach((value) => {
-        if (value?.item.id === id) {
-          value.quantity +=1;
-          value.item.sum_price = parseFloat((value.quantity * value.item.price).toFixed(3))
-          value.item.sum_count_per_quantity = parseFloat((value.quantity * value.item.count_per_quantity).toFixed(3))
-        }
-      });
+      const item = state.cartItems?.find((value) => value?.item?.id === id);
 
-      localStorage.setItem("cart", JSON.stringify({ data: state.cartItems }));
+      item.quantity = item.quantity + 1;
+      item.price = parseFloat((item.quantity * item.item.price).toFixed(3));
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ cart_items: state.cartItems })
+      );
     },
     /* -------------------------------- decrement ------------------------------- */
     decrement: (state, action) => {
       const id = action.payload.id;
-      state.cartItems.forEach((value) => {
-        if (value?.item.id === id) {
-        
-         if(value.quantity > 1){
-          value.quantity -=1 
-          value.item.sum_price = parseFloat((value.quantity * value.item.price).toFixed(3))
-          value.item.sum_count_per_quantity = parseFloat((value.quantity * value.item.count_per_quantity).toFixed(3))
-         }
-        }
-      });
+      const item = state.cartItems?.find((value) => value?.item?.id === id);
 
-      localStorage.setItem("cart", JSON.stringify({ data: state.cartItems }));
+      item.quantity = item.quantity - 1;
+      item.price = parseFloat((item.quantity * item.item.price).toFixed(3));
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ cart_items: state.cartItems })
+      );
     },
+  },
+
+  /* ----------------------------- extra reducers ----------------------------- */
+  extraReducers: (builder) => {
+    builder
+    .addCase( updateCart.fulfilled  ,(state , action)=>{
+        state.isUpdate = true;
+    })
+    .addCase( updateCart.pending  ,(state , action)=>{
+        state.isLoading = true;
+    })
+    .addCase( updateCart.rejected  ,(state , action)=>{
+        state.isUpdate = false;
+        state.error = action.error
+    })
   },
 });
 
-export const { addToCart, removeAll, removeItem  ,increment , decrement} = cartSlice.actions;
+export const {
+  addToCart,
+  removeAll,
+  removeItem,
+  increment,
+  decrement,
+  initialData,
+} = cartSlice.actions;
 export default cartSlice;

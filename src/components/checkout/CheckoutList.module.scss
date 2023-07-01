@@ -35,4 +35,13 @@
       background-color: #e8e8e8;
     }
   }
+
+  .remove_all_btn {
+    @include regular_font;
+    color: $primary_c;
+    border: 0;
+    padding: 0;
+    text-align: right;
+    background-color: transparent;
+  }
 }
