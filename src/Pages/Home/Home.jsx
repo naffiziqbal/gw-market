@@ -76,7 +76,7 @@ const Home = () => {
       }
     };
 
-    setTimeout(getOauthData, 500);
+    setTimeout(getOauthData, 800);
 
 
     return ()=>{clearTimeout(getOauthData)}

@@ -5,7 +5,7 @@ import { useInitialAddContactMutation } from "../../redux/features/contact/conta
 import { Select } from "../select/Select";
 import styles from "./contactForm.module.scss";
 
-function ContactForm() {
+function ContactForm({label}) {
   const [sendOTP, { data }] = useSendOTPMutation();
   const [
     initialAddContact,

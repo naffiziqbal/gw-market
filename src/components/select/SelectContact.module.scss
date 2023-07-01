@@ -1,8 +1,12 @@
+@import "../../styles/_global";
+@import "../../styles/_utils";
+
 .select_contact {
   max-width: 300px;
   padding: 15px;
   border-radius: 12px;
-
+  background-color: hsla(0, 0%, 100%, 0.281) !important;
+  cursor: pointer;
   & .radio {
     width: 19px;
     height: 19px;
