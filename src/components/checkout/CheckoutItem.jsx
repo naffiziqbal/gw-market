@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useAuth } from "../../hooks/useAuth";
 import { useCart } from "../../hooks/useCart";
 import {
   decrement,
   increment,
-  updateCart
+  updateCart,
 } from "../../redux/features/addToCart/cartSlice";
 import { convertCartItemDataForAPI } from "../../utils/cart";
 import { debounce } from "../../utils/utils";
 import Counter from "../ui/cart/Counter";
 import styles from "./CheckoutItem.module.scss";
 
-function CheckoutItem({ product  , removeHandler , trackClick , resetTrackClick}) {
+function CheckoutItem({ product, removeHandler, trackClick, resetTrackClick }) {
   const { quantity, price, item } = product;
   const dispatch = useDispatch();
   const { getData } = useCart();
   const [batchUpdateData, setBatchUpdateData] = useState([]);
-
+  const isAuth = useAuth();
 
   const incrementHandler = (id) => {
     dispatch(increment({ id }));
@@ -27,9 +28,6 @@ function CheckoutItem({ product  , removeHandler , trackClick , resetTrackClick}
     dispatch(decrement({ id }));
     addToBatchUpdate({ id, quantity: -1 });
   };
-
-
-
 
   const addToBatchUpdate = (data) => {
     const existingItemIndex = batchUpdateData.findIndex(
@@ -46,13 +44,13 @@ function CheckoutItem({ product  , removeHandler , trackClick , resetTrackClick}
 
   // update cart api
   useEffect(() => {
-    if (batchUpdateData.length > 0 || trackClick) {
+    if (batchUpdateData.length > 0 || (trackClick && isAuth)) {
       const data = convertCartItemDataForAPI(getData?.cartItems);
 
       const update = debounce(() => {
         dispatch(updateCart({ cart_items: data }));
         setBatchUpdateData([]); // Clear the batch update data after sending the request
-        resetTrackClick(0)
+        resetTrackClick(0);
       }, 600);
 
       update(); // Invoke the debounced update function immediately
@@ -62,9 +60,7 @@ function CheckoutItem({ product  , removeHandler , trackClick , resetTrackClick}
         clearTimeout(update);
       };
     }
-  }, [batchUpdateData , trackClick]);
-
-
+  }, [batchUpdateData, trackClick, isAuth]);
 
   return (
     <div className={` ${styles.checkoutItem}  `}>
@@ -96,7 +92,9 @@ function CheckoutItem({ product  , removeHandler , trackClick , resetTrackClick}
         <button
           type="button"
           className={styles.close_btn}
-          onClick={()=>{removeHandler(item?.id) ; }}
+          onClick={() => {
+            removeHandler(item?.id);
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

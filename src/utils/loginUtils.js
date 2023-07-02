@@ -54,6 +54,7 @@ export const exchangeCodeAndStore = async (authorizationCode, path) => {
     const data = await response.json();
     if (!data?.error) {
       localStorage.setItem("oAuth2Data", JSON.stringify(data));
+      localStorage.removeItem("oAuth2Code");
     }
   } catch (error) {
     console.error("Token Error:", error);

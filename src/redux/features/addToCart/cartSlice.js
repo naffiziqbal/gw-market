@@ -45,7 +45,7 @@ const cartSlice = createSlice({
       if (!isExist) {
         state.cartItems = [
           ...state.cartItems,
-          { quantity: 1, item: { ...data } },
+          { quantity: 1,  price: data?.price ,  item: { ...data } },
         ];
       }
       localStorage.setItem(

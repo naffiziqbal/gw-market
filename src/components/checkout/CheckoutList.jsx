@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useAuth } from "../../hooks/useAuth";
 import { useUpdateCartMutation } from "../../redux/features/addToCart/cartAPI";
 import { removeAll, removeItem } from "../../redux/features/addToCart/cartSlice";
 import BackButton from "../ui/BackButton";
@@ -7,16 +8,18 @@ import PageLoading from '../ui/PageLoading';
 import CheckoutItem from "./CheckoutItem";
 import styles from "./CheckoutList.module.scss";
 
+
+
 function CheckoutList({ data = [], subTotal, shippingPrice }) {
   const dispatch = useDispatch();
   const [updateCart, { isLoading, isError }] = useUpdateCartMutation();
   const [trackClick , setTrackClick] = useState(0)
-
+ const isAuth = useAuth()
 
   // remove all item from the list 
   const removeAllInCartItem = async () => {
     try {
-      await updateCart({ cart_items: [] });
+      isAuth && await updateCart({ cart_items: [] });
       dispatch(removeAll());
     } catch (err) {
       console.log(err);
