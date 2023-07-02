@@ -21,7 +21,7 @@ const Main = () => {
 
   useEffect(() => {
     if (data && isAuth) {
-      dispatch(initialData({ data: data?.cart_items }));
+      dispatch(initialData({ data: data?.cart_items || [] }));
     }
   }, [isAuth]);
 
@@ -32,7 +32,7 @@ const Main = () => {
         updateCart();
         const result = await refetch();
         if (result.data) {
-          dispatch(initialData({ data: result.data?.cart_items }));
+          dispatch(initialData({ data: result.data?.cart_items || [] }));
         }
       })();
     }
@@ -42,7 +42,7 @@ const Main = () => {
 
   useEffect(() => {
     if (!isAuth) {
-      dispatch(initialData({ data: localData?.cart_items }));
+      dispatch(initialData({ data: localData?.cart_items || [] }));
     }
   }, [isAuth]);
 

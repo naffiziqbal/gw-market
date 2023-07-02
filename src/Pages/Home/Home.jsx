@@ -79,7 +79,7 @@ const Home = () => {
         }
       };
 
-      setTimeout(getOauthData,300);
+      setTimeout(getOauthData,1000);
       setIsLoggedIn(true);
     
     return () => {
