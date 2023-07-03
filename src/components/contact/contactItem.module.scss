@@ -1,0 +1,22 @@
+.mainContactItems {
+    background: rgba(0, 0, 0, 0.83);
+    color: hsl(0, 0%, 100%);
+    width: 496px;
+    height: 571px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+
+    & .items {
+        background: rgba(255, 255, 255, 0.12);
+        width: 402px;
+        height: 124px;
+        border-radius: 9px;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        -ms-border-radius: 9px;
+        -o-border-radius: 9px;
+    }
+}
