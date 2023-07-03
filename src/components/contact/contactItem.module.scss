@@ -1,8 +1,12 @@
+@import "../../styles/_global";
+@import "../../styles/_utils";
+
+
 .mainContactItems {
     background: rgba(0, 0, 0, 0.83);
     color: hsl(0, 0%, 100%);
-    width: 496px;
-    height: 571px;
+    // min-width: 496px;
+    min-height: 571px;
     padding: 40px 39px 0 54px;
     border-radius: 12px;
     -webkit-border-radius: 12px;
@@ -12,8 +16,8 @@
 
     & .items {
         background: rgba(255, 255, 255, 0.12);
-        width: 402px;
-        height: 124px;
+        min-width: 402px;
+        min-height: 124px;
         padding: 0 15px;
         border-radius: 9px;
         -webkit-border-radius: 9px;
@@ -60,6 +64,15 @@
         line-height: 130%;
     }
 
+    & .contacts_p {
+        font-size: 21px;
+        margin-bottom: 26px;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 130%;
+    }
+
     & .verifyButton {
         border: none;
         background: none;
@@ -70,5 +83,24 @@
         font-style: normal;
         font-weight: 400;
         line-height: 130%;
+    }
+}
+
+@media (max-width : $mobile-width) {
+    .mainContactItems {
+        padding: 10px;
+        margin: 0;
+
+        & .items {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 10px 15px;
+            min-width: 100%;
+        }
+
+        & .contacts_p {
+            font-size: 16px;
+            font-weight: blod;
+            margin-bottom: 12px;
+        }
     }
 }

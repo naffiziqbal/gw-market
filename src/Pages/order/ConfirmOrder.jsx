@@ -27,8 +27,21 @@ function ConfirmOrder() {
           <div className={`${styles.paymentInfo}`}></div>
           {/* contact  */}
           <div className={`${styles.rightSection}`}>
-            <div className={`col-"5" ${styles.contactSection}`}>
-              <div className={` "row"  ${styles.contact} `}>
+            <div className={` ${styles.contactSection}`}>
+              <div className={`   ${styles.contact} `}>
+                <div className={`${styles.contactsHeading} `}>
+                  <p className={`${styles.contactsHeadline}`}>Contacts</p>
+                  <div
+                    className={`${styles.modalButton}`}
+                    onClick={() => console.log("Button")}
+                  >
+                    <span className="mx-2">
+                      {" "}
+                      <img src={addBtnImg} alt="" />
+                    </span>
+                    <span>Add New</span>
+                  </div>
+                </div>
                 {data?.contacts?.map((contact) => (
                   <div key={contact?.id} className={`"col col-xl-6"`}>
                     <SelectContact

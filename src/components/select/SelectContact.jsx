@@ -12,19 +12,6 @@ function SelectContact({ contact, selectHandler }) {
   return (
     <>
       <div className={`${styles.selectedContactSection}`}>
-        <div className={`${styles.contactsHeading} `}>
-          <p className={`${styles.contactsHeadline}`}>Contacts</p>
-          <div
-            className={`${styles.modalButton}`}
-            onClick={() => console.log("Button")}
-          >
-            <span className="mx-2">
-              {" "}
-              <img src={addBtnImg} alt="" />
-            </span>
-            <span>Add New</span>
-          </div>
-        </div>
         <div
           className={`${styles.select_contact}  text-white  `}
           onClick={() => {

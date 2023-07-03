@@ -49,15 +49,15 @@ function ContactItem() {
     });
   };
 
-  let varification = "not verified";
+  let varification = "verified";
   return (
     <div className={`${styles.mainContactItems}`}>
-      <p className="h6 fw-bold">Contacts</p>
+      <p className={`${styles.contacts_p}`}>Contacts</p>
       {contactData?.contacts?.map((value) => (
         <div
           key={value?.id}
           className={`${
-            varification === "verified" ? styles.itemsSucess : styles.items
+            value.is_verified === true ? styles.itemsSucess : styles.items
           }`}
         >
           <div>
@@ -77,8 +77,9 @@ function ContactItem() {
                     t
                     ype="button"
                     onClick={() => {
-                      modalOpenHandler();
-                      sendHandler(value?.id);
+                      console.log("");
+                      // modalOpenHandler();
+                      // sendHandler(value?.id);
                     }}
                     className={`${styles.verifyButton}`}
                   >
