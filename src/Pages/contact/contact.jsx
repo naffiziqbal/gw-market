@@ -9,7 +9,7 @@ function Contact() {
 
   return (
     <div className="custom__container ">
-      <div className="d-flex ">
+      <div className="d-flex gap-5 flex-sm-column">
         <div>
           <ContactForm />
         </div>

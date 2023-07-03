@@ -49,19 +49,30 @@ function ContactItem() {
     });
   };
 
+  let varification = "not verified";
   return (
     <div className={`${styles.mainContactItems}`}>
-      <p className="h6">Contact</p>
+      <p className="h6 fw-bold">Contacts</p>
       {contactData?.contacts?.map((value) => (
-        <div key={value?.id} className={`${styles.items}`}>
+        <div
+          key={value?.id}
+          className={`${
+            varification === "verified" ? styles.itemsSucess : styles.items
+          }`}
+        >
           <div>
             <div>
               <>
-                <div className="d-flex align-items-center gap-1">
-                  <img src={value?.label === "Office" ? office : home} alt="" />
-                  <span className={`${styles.contactLable}`}>
-                    {value?.label}
-                  </span>
+                <div className={`${styles.itemsHeader}`}>
+                  <div>
+                    <img
+                      src={value?.label === "Office" ? office : home}
+                      alt=""
+                    />
+                    <span className={`${styles.contactLable}`}>
+                      {value?.label}
+                    </span>
+                  </div>
                   <button
                     t
                     ype="button"
@@ -69,12 +80,11 @@ function ContactItem() {
                       modalOpenHandler();
                       sendHandler(value?.id);
                     }}
+                    className={`${styles.verifyButton}`}
                   >
-                    verify
+                    {varification}
                   </button>
                 </div>
-                {/* radio */}
-                <div className=""></div>
 
                 {/* contact number  */}
                 <p className={`my-2`}>{value?.phone_number}</p>
