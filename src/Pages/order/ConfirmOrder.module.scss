@@ -91,7 +91,7 @@
 
 
 
-  // Media Queries 
+  // Media Queries
 
   @media (max-width : $mobile-width) {
     .contact {
@@ -128,10 +128,10 @@
 
     }
 
-.paymentButton{
-  flex-direction: column-reverse;
-  margin: 0 auto;
-}
+    .paymentButton {
+      flex-direction: column-reverse;
+      margin: 0 auto;
+    }
 
   }
 
