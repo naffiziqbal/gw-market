@@ -1,16 +1,102 @@
 @import "../../styles/_global";
 @import "../../styles/_utils";
 
+
 .select_contact {
-  max-width: 300px;
+  max-width: 330px;
   padding: 15px;
   border-radius: 12px;
-  background-color: hsla(0, 0%, 100%, 0.281) !important;
+  background-color: hsl(0, 0%, 27%) !important;
   cursor: pointer;
+  height: 124px;
+
   & .radio {
     width: 19px;
     height: 19px;
     border: 2px solid white;
     border-radius: 100%;
+
+
   }
+
+  & .selected {
+    width: 19px;
+    height: 19px;
+    border: 2px solid white;
+    background: white;
+    border-radius: 100%;
+  }
+
+
+  & .leftSection {
+    position: relative;
+    max-width: 50%;
+  }
+
+  & p {
+    color: #FFF;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+  }
+}
+
+.contactLable {
+  color: #FFF;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%;
+}
+
+.selectedContactSection {
+  & .contactsHeading {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  & .contactsHeadline {
+    color: #FFF;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+  }
+
+  .modalButton {
+    color: #fff;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+    cursor: pointer;
+  }
+
+  @media (max-width : $mobile-width) {
+    .modalButton {
+      display: none;
+      color: green;
+    }
+
+    .select_contact {
+      width: 270px;
+      height: 124px;
+      border-radius: 12px;
+      background-color: hsl(0, 0%, 27%) !important;
+      cursor: pointer;
+
+      .contactsHeadline {
+        position: relative;
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width : $tablet-width) {}
+
+  @media (max-width : $desktop-width) {}
 }
