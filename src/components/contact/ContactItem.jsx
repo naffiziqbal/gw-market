@@ -1,19 +1,23 @@
 import React, { useState } from "react";
-import { useSendOTPMutation, useVerifyOTPMutation } from "../../redux/features/OTP/OTPapi";
-import { useGetContactQuery } from '../../redux/features/contact/contactAPI';
+import {
+  useSendOTPMutation,
+  useVerifyOTPMutation,
+} from "../../redux/features/OTP/OTPapi";
+import { useGetContactQuery } from "../../redux/features/contact/contactAPI";
 import Modal from "../modal/Modal";
-
-
+import home from "../../assets/images/home.svg";
+import office from "../../assets/images/office.svg";
+import styles from "./contactItem.module.scss";
 
 function ContactItem() {
   const [modalOpen, setModalOpen] = useState(false);
   const [code, setCode] = useState("");
   const [sendOTP, { data, isError }] = useSendOTPMutation();
   const [verifyOTP] = useVerifyOTPMutation();
-  const [contactId , setContactId] = useState()
+  const [contactId, setContactId] = useState();
 
   const { data: contactData } = useGetContactQuery();
-console.log(code);
+  console.log(contactData, "Contact Data");
   // modal
   const modalOpenHandler = () => {
     setModalOpen(true);
@@ -25,35 +29,64 @@ console.log(code);
 
   // otp send handler
   const sendHandler = async (id) => {
-    setContactId(id)
+    setContactId(id);
     const data = await sendOTP({ customer_contact: id });
     console.log(data);
   };
 
-  
-  const verifyHandler = async () =>{
-      console.log(parseInt(code));
-     console.log(contactId);
-     const data = await verifyOTP({ customer_contact: contactId , otp_code: parseInt(code) })
-     console.log(data);
-  }
+  console.log(
+    contactData?.contacts.map((value) => {
+      console.log(value);
+    })
+  );
+
+  const verifyHandler = async () => {
+    console.log(parseInt(code));
+    console.log(contactId);
+    const data = await verifyOTP({
+      customer_contact: contactId,
+      otp_code: parseInt(code),
+    });
+  };
 
   return (
-    <div>
+    <div className={`${styles.mainContactItems}`}>
+      <p className="h6">Contact</p>
       {contactData?.contacts?.map((value) => (
-        <div key={value?.id}>
-          <p>id: {value?.id}</p>
-          <p>id: {value?.receiver_name}</p>
-          <address>address: {value?.address}</address>
-          <button
-            type="button"
-            onClick={() => {
-              modalOpenHandler();
-              sendHandler(value?.id);
-            }}
-          >
-            verify
-          </button>
+        <div key={value?.id} className={`${styles.items}`}>
+          <div>
+            <div>
+              <>
+                <div className="d-flex align-items-center gap-1">
+                  <img src={value?.label === "Office" ? office : home} alt="" />
+                  <span className={`${styles.contactLable}`}>
+                    {value?.label}
+                  </span>
+                  <button
+                    t
+                    ype="button"
+                    onClick={() => {
+                      modalOpenHandler();
+                      sendHandler(value?.id);
+                    }}
+                  >
+                    verify
+                  </button>
+                </div>
+                {/* radio */}
+                <div className=""></div>
+
+                {/* contact number  */}
+                <p className={`my-2`}>{value?.phone_number}</p>
+                {/* address  */}
+                <address>
+                  <p>{value?.address}</p>
+                  <p>City: {value?.province_city}</p>
+                  <p>Ward commune: {value?.ward_commune}</p>
+                </address>
+              </>
+            </div>
+          </div>
         </div>
       ))}
 
@@ -69,7 +102,11 @@ console.log(code);
             onChange={(e) => setCode(e.target.value)}
           />
 
-          <button type="button" className="custom_btn py-1 px-2" onClick={verifyHandler}>
+          <button
+            type="button"
+            className="custom_btn py-1 px-2"
+            onClick={verifyHandler}
+          >
             Verify
           </button>
         </div>

@@ -1,5 +1,157 @@
+@import "../../styles/_global.scss";
+@import "../../styles/_utils.scss";
+
+
+
 .confirm_order {
   .contact {
-    background-color: hsla(0, 0%, 0%, 0.04);
+    max-width: 486px;
+    height: 224px;
+    background-color: #272626;
+    color: #fff;
+    display: flex;
+    margin: 1rem;
+    justify-content: space-between;
+    flex-direction: row;
+    line-height: 2;
+    padding: 26px 53px 21px 40px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
   }
+
+  & .main {
+    display: flex;
+    position: relative;
+  }
+
+  & .paymentInfo {
+    max-width: 50%;
+
+  }
+
+  & .rightSection {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .paymentButton {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 0 1rem;
+    justify-content: space-between;
+
+    .buttonCancel {
+      text-align: center;
+      justify-items: center;
+      border: 1px solid #2222229c;
+      width: 231px;
+      height: 56px;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+    }
+
+    .buttonPlace {
+      text-align: center;
+      justify-items: center;
+      background: #F90;
+      border: #F90;
+      color: white;
+      width: 231px;
+      height: 56px;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+    }
+  }
+
+  .cardOption {
+    max-width: 486px;
+    height: 224px;
+    background-color: #272626;
+    color: #fff;
+    margin: 1rem;
+    line-height: 2;
+    padding: 26px 53px 21px 40px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+
+
+
+  // Media Queries
+
+  @media (max-width : $mobile-width) {
+    .contact {
+      max-width: 332px;
+      height: 391px;
+      background-color: #272626;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      padding: 27px 38px 18px 24px;
+
+    }
+
+    .paymentInfo {
+      width: 100%;
+    }
+
+    .cardOption {
+      width: 332px;
+      height: 236px;
+      background-color: #272626;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      padding: 27px 38px 18px 24px;
+    }
+
+    .cardItems {
+      display: flex;
+      justify-content: space-between;
+      margin: 22px 0;
+
+    }
+
+    .paymentButton {
+      flex-direction: column-reverse;
+      margin: 0 auto;
+    }
+
+  }
+
+  @media (max-width : $tablet-width) {
+    .paymentInfo {
+      width: 100%;
+    }
+
+  }
+
+  @media (max-width : $desktop-width) {
+    .paymentInfo {
+      width: 100%;
+    }
+  }
+
+  @media (min-width : $desktop-width) {
+    .paymentInfo {
+      width: 50%;
+    }
+  }
+
 }
