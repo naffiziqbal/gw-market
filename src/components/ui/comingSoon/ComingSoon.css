@@ -1,0 +1,54 @@
+:root {
+  --B: #00eaff;
+  --light-shadow: #666d6d;
+  --dark-shadow: #717b7c;
+}
+
+.coming_soon.main {
+  display: grid;
+  grid-template-areas: "overlap";
+  text-transform: uppercase;
+}
+
+.coming_soon.main p {
+  font-size: 18px;
+  font-family: "poppins ";
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.fline,
+.sline {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #777974;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  grid-area: overlap;
+  letter-spacing: 2px;
+  -webkit-text-stroke: 3px transparent;
+}
+
+.fline {
+  background-image: repeating-linear-gradient(
+    105deg,
+    var(--B) 1%,
+    var(--dark-shadow) 5%,
+    var(--B) 12%
+  );
+  color: transparent;
+  filter: drop-shadow(5px 15px 15px rgb(221, 221, 221));
+  transform: scaleY(1.05);
+  transform-origin: top;
+}
+.sline {
+  background-image: repeating-linear-gradient(
+    5deg,
+    var(--B) 0%,
+    var(--light-shadow) 23%,
+    var(--B) 31%
+  );
+  color: #5b5d61;
+  transform: scale(1);
+}

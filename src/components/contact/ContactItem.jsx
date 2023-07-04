@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import home from "../../assets/images/home.svg";
+import office from "../../assets/images/office.svg";
 import {
   useSendOTPMutation,
   useVerifyOTPMutation,
 } from "../../redux/features/OTP/OTPapi";
 import { useGetContactQuery } from "../../redux/features/contact/contactAPI";
 import Modal from "../modal/Modal";
-import home from "../../assets/images/home.svg";
-import office from "../../assets/images/office.svg";
 import styles from "./contactItem.module.scss";
 
 function ContactItem() {
@@ -49,6 +49,7 @@ function ContactItem() {
     });
   };
 
+
   return (
     <div className={`${styles.mainContactItems}`}>
       <p className="h6">Contact</p>
@@ -59,12 +60,11 @@ function ContactItem() {
               <>
                 <div className="d-flex align-items-center gap-1">
                   <img src={value?.label === "Office" ? office : home} alt="" />
-                  <span className={`${styles.contactLable}`}>
+                  <span className={`${styles.contactLabel}`}>
                     {value?.label}
                   </span>
                   <button
-                    t
-                    ype="button"
+                    type="button"
                     onClick={() => {
                       modalOpenHandler();
                       sendHandler(value?.id);
@@ -73,8 +73,6 @@ function ContactItem() {
                     verify
                   </button>
                 </div>
-                {/* radio */}
-                <div className=""></div>
 
                 {/* contact number  */}
                 <p className={`my-2`}>{value?.phone_number}</p>

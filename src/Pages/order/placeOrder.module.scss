@@ -1,0 +1,172 @@
+@import "../../styles/_global.scss";
+@import "../../styles/_utils.scss";
+
+.place_order {
+  margin-block: 40px;
+
+  & .main {
+    display: flex;
+    position: relative;
+  }
+
+  & .paymentInfo {
+    width: 50%;
+    & .cod {
+      label {
+        @include medium_font;
+      }
+
+      input[type="radio"] {
+        width: 26px;
+        height: 26px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        outline: 2px solid rgb(151, 159, 160);
+        outline-offset: 2px;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      input[type="radio"]:checked {
+        /* Change the color when the radio button is checked */
+        background-color: #adc7e4;
+      }
+    }
+  }
+
+  /* ----------------------------- contact section ---------------------------- */
+
+  & .rightSection {
+    max-width: 486px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: auto;
+
+    .contactSection {
+      height: 100%;
+      background-color: #272626;
+      padding: 25px;
+      border-radius: 12px;
+
+      .contact {
+        color: #fff;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-content: center;
+        gap: 30px;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+      }
+
+      .contactsHeading {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+      }
+
+      .contactsHeadline {
+        color: $white_c;
+        font-size: 1.35rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 130%;
+        font-family: $f_poppins;
+      }
+
+      .modalButton {
+        color: #fff;
+        font-size: 1.18rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 130%;
+        cursor: pointer;
+        font-family: $f_poppins;
+      }
+    }
+
+    .paymentButton {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      justify-content: space-between;
+    }
+
+    .balanceCard {
+      min-height: 224px;
+      background-color: #272626;
+      color: #fff;
+      padding: 26px 53px 21px 40px;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+    }
+  }
+  /* --------------------------- contact section end -------------------------- */
+  // Media Queries
+
+  @media (max-width: $mobile-width) {
+    .main {
+      flex-direction: column;
+    }
+
+    .paymentInfo {
+      width: 100%;
+    }
+
+    .rightSection {
+      max-width: 100% !important;
+      margin-left: 0 !important;
+    }
+
+    .cardOption {
+      width: 332px;
+      height: 236px;
+      background-color: #272626;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      padding: 27px 38px 18px 24px;
+    }
+
+    .cardItems {
+      display: flex;
+      justify-content: space-between;
+      margin: 22px 0;
+    }
+
+    .paymentButton {
+      justify-content: flex-end !important;
+    }
+  }
+
+  @media (max-width: $tablet-width) {
+    .main {
+      flex-direction: column;
+    }
+
+    .paymentInfo {
+      width: 100%;
+    }
+    .rightSection {
+      max-width: 100% !important;
+      margin-left: 0 !important;
+      margin-top: 30px;
+    }
+  }
+
+  @media (min-width: $desktop-width) {
+    .paymentInfo {
+      width: 50%;
+    }
+  }
+}

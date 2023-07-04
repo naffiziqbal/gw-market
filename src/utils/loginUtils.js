@@ -7,7 +7,6 @@ const API_BASE_URL = import.meta.env.VITE_BASE_API_URL;
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
 
-
 export const oAuth2Login = (path) => {
   const authorizationEndpoint = "https://accounts.google.com/o/oauth2/auth";
   const scope = "https://www.googleapis.com/auth/userinfo.email";
@@ -25,9 +24,6 @@ export const oAuthUrlToData = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
 
-  if (code) {
-    localStorage.setItem("oAuth2Code", JSON.stringify({ code }));
-  }
 
   return { code };
 };
@@ -52,21 +48,23 @@ export const exchangeCodeAndStore = async (authorizationCode, path) => {
     });
 
     const data = await response.json();
-    if (!data?.error) {
-      localStorage.setItem("oAuth2Data", JSON.stringify(data));
-      localStorage.removeItem("oAuth2Code");
-    }
+
+    return new Promise((resolve, reject) => {
+      if (!data?.error) {
+        resolve(data);
+      } else {
+        reject(data);
+      }
+    });
   } catch (error) {
     console.error("Token Error:", error);
   }
 };
 
 // convert token
-
-export const convertToken = async (getData) => {
+export const convertToken = async (token) => {
   try {
-    if (getData) {
-      const token = getData?.access_token;
+    if (token) {
 
       const DATA = {
         grant_type: "convert_token",
@@ -97,23 +95,23 @@ export const convertToken = async (getData) => {
       const data = await response.json();
       const userData = await userInfo.json();
 
-      if (!data?.error) {
-        Cookies.set(
-          "authUserData",
-          JSON.stringify({ ...data, user: userData }),
-          { expires: data?.expires_in }
-        );
-        return { data: data, user: userData };
-      }
+      return new Promise((resolve, reject) => {
+        if (!data?.error) {
+          Cookies.set(
+            "authUserData",
+            JSON.stringify({ ...data, user: userData }),
+            { expires: data?.expires_in }
+          );
+          resolve({ data: data, user: userData });
+        } else {
+          reject(data);
+        }
+      });
     }
   } catch (err) {
     console.log(err);
   }
 };
-
-
-
-
 
 // set query param  in localstorage for tracking  route after google login success
 

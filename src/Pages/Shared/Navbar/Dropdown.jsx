@@ -8,8 +8,6 @@ const {logout , success , isLoading , error} = useLogout();
 
 
 
-
-
     if (isOpen)
       return (
         <ul className= {`position-absolute top-100 end-0 ${styles.dropdown}  list-unstyled `}>

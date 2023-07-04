@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import home from "../../assets/images/home.svg";
 import office from "../../assets/images/office.svg";
 import styles from "./SelectContact.module.scss";
-import { useSelector } from "react-redux";
-import addBtnImg from "../../assets/images/carbon_add-filled.svg";
 
 function SelectContact({ contact, selectHandler }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
@@ -12,19 +10,6 @@ function SelectContact({ contact, selectHandler }) {
   return (
     <>
       <div className={`${styles.selectedContactSection}`}>
-        <div className={`${styles.contactsHeading} `}>
-          <p className={`${styles.contactsHeadline}`}>Contacts</p>
-          <div
-            className={`${styles.modalButton}`}
-            onClick={() => console.log("Button")}
-          >
-            <span className="mx-2">
-              {" "}
-              <img src={addBtnImg} alt="" />
-            </span>
-            <span>Add New</span>
-          </div>
-        </div>
         <div
           className={`${styles.select_contact}  text-white  `}
           onClick={() => {
@@ -32,14 +17,13 @@ function SelectContact({ contact, selectHandler }) {
             setSelectedStyle("selected");
           }}
         >
-          {/* label  */}
 
           <div
             className={`d-flex  align-items-center justify-content-between `}
           >
             <div className="d-flex align-items-center gap-1">
               <img src={contact?.label === "Office" ? office : home} alt="" />
-              <span className={`${styles.contactLable}`}>{contact?.label}</span>
+              <span className={`${styles.contactLabel}`}>{contact?.label}</span>
             </div>
             {/* radio */}
             <div
@@ -50,12 +34,12 @@ function SelectContact({ contact, selectHandler }) {
           </div>
 
           {/* contact number  */}
-          <p className={`my-2`}>{contact?.phone_number}</p>
+          <p className={`my-3 ${styles.phone_number}`} >{contact?.phone_number}</p>
           {/* address  */}
           <address>
             <p>{contact?.address}</p>
-            <p>City: {contact?.province_city}</p>
-            <p>Ward commune: {contact?.ward_commune}</p>
+            <p className=""><span className="fw-bold">City: &nbsp; </span>{contact?.province_city}</p>
+            <p><span className="fw-bold">Wards commune: &nbsp; </span> {contact?.ward_commune}</p>
           </address>
         </div>
       </div>

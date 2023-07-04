@@ -17,9 +17,6 @@ function ProductCard({ productData = {} }) {
     setTrackClick((prev)=> ++prev)
   };
 
-console.log(trackClick);
-
-
  // update cart api
  useEffect(() => {
   if (trackClick) {

@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 function CheckoutBtn() {
   const isAuth = useAuth();
 
-  let link = isAuth ? '/confirm_order' : '/login?from=checkout'
+  let link = isAuth ? '/place_order' : '/login?from=checkout'
 
   return (
     <div className="checkout__btn_wrapper">

@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchLogoutApi } from "./authAPI";
 
-export const fetchLogout = createAsyncThunk("account/fetchLogout", async (token) => {
-  
+export const fetchLogout = createAsyncThunk("account/fetchLogout", async ( _ , {getState}) => {
+  const token = getState().auth?.loggedInUser?.token;
+  console.log(token);
   const res =  await fetchLogoutApi(token);
   return res.data;
 });
-
-
 
 
 const initialState = {
@@ -26,6 +25,18 @@ const authSlice = createSlice({
     loggedInUser: (state, action) => {
       state.loggedInUser = action.payload;
     },
+    updateToken:(state , action)=>{
+      const {token , haveToLogOut} = action.payload
+
+      if(haveToLogOut){
+         state.loggedInUser.haveToLogOut = true;
+      }else{
+        state.loggedInUser.token = token;
+        state.loggedInUser.haveToLogOut = false;
+      }
+      
+    },
+    
     userLoggedOut: (state) => {
       state.loggedInUser = {};
     },
@@ -33,6 +44,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchLogout.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.isLoading = false;
         state.logout = action.payload;
       })
@@ -46,5 +58,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { loggedInUser, userLoggedOut } = authSlice.actions;
+export const { loggedInUser, userLoggedOut , updateToken} = authSlice.actions;
 export default authSlice;

@@ -105,6 +105,16 @@
   color: $white_c;
 }
 
+.btn_outline {
+  background-color: transparent !important;
+  outline: 1px solid $border_c;
+  color: $black_c;
+}
+
+.btn_outline:hover {
+  color: $white_c !important;
+  background-color: $black_c !important;
+}
 /*=====  End of button mixin  ======*/
 
 /*=============================================

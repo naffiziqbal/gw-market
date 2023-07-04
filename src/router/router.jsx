@@ -4,10 +4,13 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Checkout from "../Pages/checkout/Checkout";
 import Contact from "../Pages/contact/contact";
-import ConfirmOrder from "../Pages/order/ConfirmOrder";
+import ConfirmedOrder from "../Pages/order/confirmedOrder";
+import PlaceOrder from "../Pages/order/placeOrder";
 import Main from "../layout/Main";
 import ProtectRoute from "./ProtectRoute";
 import PublicRoute from "./PublicRoute";
+
+
 
 const router = createBrowserRouter([
   {
@@ -39,10 +42,10 @@ const router = createBrowserRouter([
         element: <Checkout />,
       },
       {
-        path: "/confirm_order",
+        path: "/place_order",
         element: (
           <ProtectRoute>
-            <ConfirmOrder />
+            <PlaceOrder />
           </ProtectRoute>
         ),
       },
@@ -51,6 +54,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectRoute>
             <Contact />
+          </ProtectRoute>
+        ),
+      },
+      {
+        path: "/confirmed_order",
+        element: (
+          <ProtectRoute>
+            <ConfirmedOrder />
           </ProtectRoute>
         ),
       },

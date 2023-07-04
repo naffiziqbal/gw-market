@@ -40,59 +40,57 @@ const Home = () => {
   }, [data, isError]);
 
   useEffect(() => {
-    !isAuth && oAuthUrlToData();
-  }, [isAuth]);
-
-  useEffect(() => {
-      const oAuth2Code = localStorage.getItem("oAuth2Code");
-      if (oAuth2Code) {
-        const code = JSON.parse(oAuth2Code)?.code;
-        setIsLoading(true);
-        exchangeCodeAndStore(code, "");
-      }
-    
-  }, []);
-
-  /* -------------------- get oAuth2 data from localStorage ------------------- */
-  useEffect(() => {
-    let getOauthData = () => {
-        let getData = localStorage.getItem("oAuth2Data");
-        getData = getData ? JSON.parse(getData) : null;
-        setIsLoading(false);
-        if (getData) {
-          const data = convertToken(getData);
-          data.then((value) => {
-            if (value && value?.data?.access_token) {
+    const code = oAuthUrlToData();
+    let codeReset = code ? code?.code : null;
+    if (codeReset) {
+      setIsLoading(true); 
+      // const code = JSON.parse(oAuth2Code)?.code;
+      (async () => {
+        try {
+          const res = await exchangeCodeAndStore(code?.code, "");
+          codeReset = null;
+          /* ------------------------------ convert token ----------------------------- */
+          if (res && res?.access_token) {
+            const data = await convertToken(res?.access_token);
+            if (data && data?.data?.access_token) {
               const query = getQuery();
-              localStorage.removeItem("oAuth2Data");
               // set login cookies
               dispatch(
                 loggedInUser({
-                  token: value?.data?.access_token,
-                  user: value?.user,
+                  token: data?.data?.access_token,
+                  refresh_token:data?.data?.refresh_token,
+                  user: data?.user,
                 })
               );
-              setIsLoading(false);
+              
               navigate(query ? `/${query}` : "/");
+              setIsLoading(false);
+              setIsLoggedIn(true);
             }
-          });
+          }
+
+        } catch (err) {
+          console.log(err);
         }
-      };
-
-      setTimeout(getOauthData,1000);
-      setIsLoggedIn(true);
-    
-    return () => {
-      clearTimeout(getOauthData);
-    };
+      })();
+    }
   }, []);
-
   /* ------------------------------- update cart ------------------------------ */
   useEffect(() => {
+    let timeOutId;
+    let timeOutEnd = false;
+
     if (isLoggedIn) {
-      updateCart();
-      setIsLoggedIn(false);
+      timeOutId = setTimeout(()=>{
+        updateCart();
+        setIsLoggedIn(false);
+        timeOutEnd = true;
+      } , 300)
     }
+
+    timeOutEnd && clearTimeout(timeOutId)
+
+    return ()=>{clearTimeout(timeOutId)}
   }, [isLoggedIn]);
 
   /* -------------------------------- items tab ------------------------------- */
@@ -118,7 +116,7 @@ const Home = () => {
     setSelectedSubCategory(subcategory);
   };
 
-  if ((isLoading && !isAuth) || loading) return <PageLoading />;
+  if (isLoading) return <PageLoading />;
 
   return (
     <>
